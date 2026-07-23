@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avuex Price Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#c9a84c;--gold-light:#e8c97a;--gold-border:rgba(201,168,76,0.12);
+  --green:#4caf7d;--red:#e05c5c;--text:#e0d5c5;--text-dim:rgba(201,168,76,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{min-height:100vh;font-family:'Outfit',sans-serif;color:var(--text);background-color:#080705;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"),
+  radial-gradient(ellipse at 50% 0%,#1c1408 0%,#0a0806 50%,#050403 100%);
+  background-size:300px 300px,100% 100%;}
+.hero{text-align:center;padding:50px 24px 40px;position:relative;}
+.hero::after{content:'';display:block;width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4),transparent);margin:36px auto 0;}
+.logo-svg{width:160px;height:auto;display:block;margin:0 auto 14px;filter:drop-shadow(0 4px 20px rgba(201,168,76,0.2));}
+.brand-sub{font-size:8px;letter-spacing:5px;color:rgba(201,168,76,0.3);text-transform:uppercase;font-weight:300;}
+.container{max-width:480px;margin:0 auto;padding:0 20px 80px;}
+.divider-label{display:flex;align-items:center;gap:12px;margin:28px 0 16px;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim);}
+.divider-label::before,.divider-label::after{content:'';flex:1;height:1px;background:var(--gold-border);}
+.panel{background:rgba(18,13,8,0.65);border:1px solid var(--gold-border);padding:22px 20px;position:relative;margin-bottom:10px;}
+.panel::before{content:'';position:absolute;top:0;left:30px;right:30px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fg{display:flex;flex-direction:column;gap:7px;}
+.fg.full{grid-column:1/-1;}
+label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+select,input[type="number"]{background:rgba(8,6,4,0.8);border:1px solid rgba(201,168,76,0.1);border-bottom-color:rgba(201,168,76,0.2);color:var(--text);padding:13px 32px 13px 13px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;width:100%;transition:border-color 0.2s;}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath fill='rgba(201,168,76,0.4)' d='M4 5L0 0h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;}
+input[type="number"]{padding:13px 14px;}
+select:focus,input:focus{outline:none;border-color:rgba(201,168,76,0.4);}
+select option{background:#0d0b07;}
+.toggle-wrap{display:flex;gap:0;margin-bottom:10px;border:1px solid var(--gold-border);overflow:hidden;}
+.toggle-btn{flex:1;padding:13px;background:transparent;border:none;color:var(--text-dim);font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.toggle-btn.active{background:rgba(201,168,76,0.1);color:var(--gold);border-bottom:1px solid var(--gold);}
+.toggle-divider{width:1px;background:var(--gold-border);}
+.results{display:none;}
+.results.visible{display:block;}
+.price-card{background:rgba(18,13,8,0.65);border:1px solid var(--gold-border);padding:24px 20px;margin-bottom:10px;position:relative;}
+.price-card::before{content:'';position:absolute;top:0;left:30px;right:30px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent);}
+.price-model{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--gold-light);letter-spacing:1px;margin-bottom:4px;}
+.price-sub{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;}
+.big-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gold-border);}
+.big-box{text-align:center;padding:14px 10px;background:rgba(8,6,4,0.4);border:1px solid var(--gold-border);}
+.big-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+.big-value{font-size:26px;font-weight:600;line-height:1;}
+.big-value.gold{color:var(--gold);}
+.big-value.green{color:var(--green);}
+.fee-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(201,168,76,0.04);}
+.fee-row:last-child{border-bottom:none;}
+.fee-label{font-size:12px;color:rgba(224,213,197,0.45);}
+.fee-value{font-size:12px;color:rgba(224,213,197,0.55);}
+.fee-value.deduct{color:var(--red);}
+.fee-total-row{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,0.15);}
+.fee-total-label{font-size:13px;color:var(--text);font-weight:500;}
+.fee-total-value{font-size:15px;color:var(--green);font-weight:600;}
+.buy-card{background:rgba(12,9,5,0.8);border:1px solid var(--gold-border);padding:20px;margin-bottom:10px;}
+.buy-title{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;}
+.margin-row{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;margin-bottom:5px;border:1px solid rgba(201,168,76,0.07);}
+.margin-label{font-size:11px;color:rgba(224,213,197,0.45);}
+.margin-value{font-size:15px;font-weight:600;}
+.mv-ok{color:var(--gold);}
+.mv-good{color:var(--green);}
+.calc-section{background:rgba(18,13,8,0.65);border:1px solid var(--gold-border);padding:22px 20px;}
+.calc-title{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;}
+.calc-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:14px;}
+.calc-btn{padding:13px 18px;background:transparent;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'Outfit',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.calc-btn:active{background:rgba(201,168,76,0.08);}
+.calc-result{display:none;}
+.calc-result.visible{display:block;}
+.verdict{padding:14px;text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-top:12px;}
+.verdict.buy{background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.2);color:var(--green);}
+.verdict.caution{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:var(--gold);}
+.verdict.pass{background:rgba(224,92,92,0.08);border:1px solid rgba(224,92,92,0.2);color:var(--red);}
+.repair-cost-note{font-size:11px;color:rgba(201,168,76,0.4);margin-bottom:10px;font-style:italic;}
+footer{text-align:center;padding:28px 20px;border-top:1px solid var(--gold-border);font-size:8px;letter-spacing:4px;color:rgba(201,168,76,0.12);text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <svg class="logo-svg" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#e8c97a"/><stop offset="40%" style="stop-color:#c9a84c"/><stop offset="100%" style="stop-color:#8b6914"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#e8c97a"/><stop offset="50%" style="stop-color:#c9a84c"/><stop offset="100%" style="stop-color:#7a5c10"/>
+      </linearGradient>
+    </defs>
+    <polygon points="90,170 160,20 185,20 260,170 235,170 160,55 115,170" fill="url(#g1)"/>
+    <line x1="195" y1="30" x2="275" y2="170" stroke="url(#g2)" stroke-width="22" stroke-linecap="square"/>
+    <line x1="275" y1="30" x2="195" y2="170" stroke="url(#g2)" stroke-width="22" stroke-linecap="square"/>
+    <rect x="220" y="95" width="34" height="20" fill="#100c07"/>
+    <text x="160" y="215" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="32" font-weight="300" letter-spacing="14" fill="url(#g1)">AVUEX</text>
+  </svg>
+  <div class="brand-sub">Price Reference Guide</div>
+</div>
+
+<div class="container">
+
+  <div class="toggle-wrap">
+    <button class="toggle-btn active" id="btn-avg" onclick="setMode('avg')">Average Price</button>
+    <div class="toggle-divider"></div>
+    <button class="toggle-btn" id="btn-comp" onclick="setMode('comp')">Competitive</button>
+  </div>
+
+  <div class="divider-label">Select Device</div>
+
+  <div class="panel">
+    <div class="form-grid">
+      <div class="fg full">
+        <label>Model</label>
+        <select id="model" onchange="updateStorage();updateRepairs();showPrice();">
+          <option value="">— Select Model —</option>
+          <option value="iPhone 13 Pro Max|370|355">iPhone 13 Pro Max</option>
+          <option value="iPhone 14 Pro|330|315">iPhone 14 Pro</option>
+          <option value="iPhone 14 Pro Max|445|420">iPhone 14 Pro Max</option>
+          <option value="iPhone 15|370|355">iPhone 15</option>
+          <option value="iPhone 15 Pro|505|480">iPhone 15 Pro</option>
+          <option value="iPhone 15 Pro Max|590|572">iPhone 15 Pro Max</option>
+          <option value="iPhone 16|500|475">iPhone 16</option>
+          <option value="iPhone 16 Pro|615|595">iPhone 16 Pro</option>
+          <option value="iPhone 16 Pro Max|740|715">iPhone 16 Pro Max</option>
+          <option value="iPhone 17|715|700">iPhone 17</option>
+          <option value="iPhone 17 Pro|970|940">iPhone 17 Pro</option>
+          <option value="iPhone 17 Pro Max|1165|1080">iPhone 17 Pro Max</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Storage</label>
+        <select id="storage" onchange="showPrice()">
+          <option value="0">128GB</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Condition</label>
+        <select id="condition" onchange="showPrice()">
+          <option value="0">Good</option>
+          <option value="mint">Mint / Like New</option>
+          <option value="fair">Fair</option>
+          <option value="poor">Poor</option>
+        </select>
+      </div>
+      <div class="fg full">
+        <label>Repair Type</label>
+        <select id="repair" onchange="showPrice()">
+          <option value="0">None — No Repair</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <div class="price-card">
+      <div class="price-model" id="r-model"></div>
+      <div class="price-sub" id="r-sub"></div>
+      <div class="big-row">
+        <div class="big-box">
+          <div class="big-label" id="mode-label">Avg List Price</div>
+          <div class="big-value gold" id="r-list"></div>
+        </div>
+        <div class="big-box">
+          <div class="big-label">Net Profit</div>
+          <div class="big-value green" id="r-profit"></div>
+        </div>
+      </div>
+      <div class="fee-row"><span class="fee-label">Sale Price</span><span class="fee-value" id="f-sale"></span></div>
+      <div class="fee-row"><span class="fee-label">eBay Fee (9.35%)</span><span class="fee-value deduct" id="f-ebay"></span></div>
+      <div class="fee-row"><span class="fee-label">Repair Cost</span><span class="fee-value deduct" id="f-repair"></span></div>
+      <div class="fee-total-row">
+        <span class="fee-total-label">Net After All Fees + Repair</span>
+        <span class="fee-total-value" id="f-net"></span>
+      </div>
+    </div>
+
+    <div class="buy-card">
+      <div class="buy-title">Max Buy Price for Target ROI</div>
+      <div class="margin-row"><span class="margin-label">20% ROI — Minimum</span><span class="margin-value mv-ok" id="b-20"></span></div>
+      <div class="margin-row"><span class="margin-label">30% ROI — Good</span><span class="margin-value mv-good" id="b-30"></span></div>
+      <div class="margin-row"><span class="margin-label">40% ROI — Great</span><span class="margin-value mv-good" id="b-40"></span></div>
+      <div class="margin-row"><span class="margin-label">50% ROI — Steal</span><span class="margin-value mv-good" id="b-50"></span></div>
+    </div>
+  </div>
+
+  <div class="divider-label" style="margin-top:32px;">Should I Buy It?</div>
+  <div class="calc-section">
+    <div class="calc-title">Enter Your Buy Price</div>
+    <div class="repair-cost-note" id="repair-note"></div>
+    <div class="calc-row">
+      <div class="fg">
+        <label>Your Buy Price</label>
+        <input type="number" id="buy-price" placeholder="$0" min="0" oninput="calculate()">
+      </div>
+      <button class="calc-btn" onclick="calculate()">Check</button>
+    </div>
+    <div class="calc-result" id="calc-result">
+      <div class="fee-row"><span class="fee-label">Buy Price</span><span class="fee-value deduct" id="c-buy"></span></div>
+      <div class="fee-row"><span class="fee-label">Repair Cost</span><span class="fee-value deduct" id="c-repair"></span></div>
+      <div class="fee-row"><span class="fee-label">Total Cost</span><span class="fee-value deduct" id="c-total-cost"></span></div>
+      <div class="fee-row"><span class="fee-label">Net After All Fees</span><span class="fee-value" id="c-net"></span></div>
+      <div class="fee-total-row"><span class="fee-total-label">Profit</span><span class="fee-total-value" id="c-profit"></span></div>
+      <div class="fee-total-row" style="margin-top:6px;"><span class="fee-total-label">ROI</span><span class="fee-total-value" id="c-roi"></span></div>
+      <div class="verdict" id="c-verdict"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>&copy; 2026 &nbsp;·&nbsp; Avuex &nbsp;·&nbsp; All Rights Reserved</footer>
+
+<script>
+const repairPrices = {
+  "iPhone 13 Pro Max": {"None":0,"Front Glass":50,"Back Glass":40,"Both Glass":90,"LCD Replacement":89,"LCD + Back Glass":129,"Battery":40,"Camera Spot Clear":20,"Camera Replacement":75},
+  "iPhone 14 Pro":     {"None":0,"Front Glass":50,"Back Glass":40,"Both Glass":110,"LCD Replacement":75,"LCD + Back Glass":125,"Battery":40,"Camera Spot Clear":20,"Camera Replacement":75},
+  "iPhone 14 Pro Max": {"None":0,"Front Glass":50,"Back Glass":40,"Both Glass":110,"LCD Replacement":78,"LCD + Back Glass":125,"Battery":40,"Camera Spot Clear":20,"Camera Replacement":80},
+  "iPhone 15":         {"None":0,"Front Glass":50,"Back Glass":45,"Both Glass":110,"LCD Replacement":57,"LCD + Back Glass":135,"Battery":35,"Camera Spot Clear":20,"Camera Replacement":70},
+  "iPhone 15 Pro":     {"None":0,"Front Glass":60,"Back Glass":45,"Both Glass":110,"LCD Replacement":75,"LCD + Back Glass":135,"Battery":40,"Camera Spot Clear":20,"Camera Replacement":75},
+  "iPhone 15 Pro Max": {"None":0,"Front Glass":60,"Back Glass":45,"Both Glass":110,"LCD Replacement":78,"LCD + Back Glass":135,"Battery":45,"Camera Spot Clear":20,"Camera Replacement":85},
+  "iPhone 16":         {"None":0,"Front Glass":55,"Back Glass":55,"Both Glass":110,"LCD Replacement":70,"LCD + Back Glass":140,"Battery":40,"Camera Spot Clear":20,"Camera Replacement":70},
+  "iPhone 16 Pro":     {"None":0,"Front Glass":65,"Back Glass":55,"Both Glass":135,"LCD Replacement":70,"Battery":45,"Camera Spot Clear":20,"Camera Replacement":85},
+  "iPhone 16 Pro Max": {"None":0,"Front Glass":65,"Back Glass":60,"Both Glass":120,"LCD Replacement":94,"LCD + Back Glass":154,"Battery":50,"Camera Spot Clear":20,"Camera Replacement":90},
+  "iPhone 17":         {"None":0,"Front Glass":80,"Back Glass":55,"Both Glass":145,"Camera Replacement":95},
+  "iPhone 17 Pro":     {"None":0,"Front Glass":90,"Back Glass":50,"Both Glass":160,"Camera Replacement":110},
+  "iPhone 17 Pro Max": {"None":0,"Front Glass":95,"Back Glass":50,"Both Glass":160,"Camera Replacement":100},
+};
+
+// Conservative storage adjustments vs 128GB baseline
+const storageOptions = {
+  "iPhone 13 Pro Max": [["128GB",0],["256GB",25],["512GB",45],["1TB",65]],
+  "iPhone 14 Pro":     [["128GB",0],["256GB",25],["512GB",45],["1TB",65]],
+  "iPhone 14 Pro Max": [["128GB",0],["256GB",25],["512GB",45],["1TB",65]],
+  "iPhone 15":         [["128GB",0],["256GB",25],["512GB",45]],
+  "iPhone 15 Pro":     [["128GB",0],["256GB",30],["512GB",50],["1TB",70]],
+  "iPhone 15 Pro Max": [["256GB",0],["512GB",40],["1TB",65]],
+  "iPhone 16":         [["128GB",0],["256GB",30],["512GB",50]],
+  "iPhone 16 Pro":     [["128GB",0],["256GB",30],["512GB",55],["1TB",75]],
+  "iPhone 16 Pro Max": [["256GB",0],["512GB",45],["1TB",70]],
+  "iPhone 17":         [["128GB",0],["256GB",30],["512GB",55]],
+  "iPhone 17 Pro":     [["256GB",0],["512GB",50],["1TB",75]],
+  "iPhone 17 Pro Max": [["256GB",0],["512GB",50],["1TB",80]],
+};
+
+// Conservative condition adjustments vs Good baseline
+const conditionAdj = {
+  "iPhone 13 Pro Max": {mint:20, good:0, fair:-30, poor:-55},
+  "iPhone 14 Pro":     {mint:20, good:0, fair:-30, poor:-55},
+  "iPhone 14 Pro Max": {mint:25, good:0, fair:-35, poor:-60},
+  "iPhone 15":         {mint:20, good:0, fair:-30, poor:-55},
+  "iPhone 15 Pro":     {mint:25, good:0, fair:-35, poor:-60},
+  "iPhone 15 Pro Max": {mint:25, good:0, fair:-40, poor:-65},
+  "iPhone 16":         {mint:25, good:0, fair:-35, poor:-60},
+  "iPhone 16 Pro":     {mint:30, good:0, fair:-40, poor:-65},
+  "iPhone 16 Pro Max": {mint:30, good:0, fair:-45, poor:-70},
+  "iPhone 17":         {mint:30, good:0, fair:-40, poor:-65},
+  "iPhone 17 Pro":     {mint:35, good:0, fair:-45, poor:-75},
+  "iPhone 17 Pro Max": {mint:35, good:0, fair:-50, poor:-80},
+};
+
+let mode = 'avg';
+let currentNet = 0;
+let currentRepairCost = 0;
+let currentModel = '';
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-avg').classList.toggle('active', m==='avg');
+  document.getElementById('btn-comp').classList.toggle('active', m==='comp');
+  document.getElementById('mode-label').textContent = m==='avg' ? 'Avg List Price' : 'Competitive Price';
+  showPrice();
+}
+
+function updateStorage() {
+  const val = document.getElementById('model').value;
+  const sel = document.getElementById('storage');
+  sel.innerHTML = '';
+  if (!val) return;
+  const model = val.split('|')[0];
+  const opts = storageOptions[model] || [["128GB",0]];
+  opts.forEach(([label, adj]) => {
+    const o = document.createElement('option');
+    o.value = adj;
+    o.textContent = label;
+    sel.appendChild(o);
+  });
+}
+
+function updateRepairs() {
+  const val = document.getElementById('model').value;
+  const sel = document.getElementById('repair');
+  sel.innerHTML = '<option value="0">None — No Repair</option>';
+  if (!val) return;
+  const model = val.split('|')[0];
+  Object.entries(repairPrices[model]||{}).forEach(([name,cost]) => {
+    if (name==='None') return;
+    const o = document.createElement('option');
+    o.value = cost;
+    o.dataset.name = name;
+    o.textContent = name + (cost > 0 ? ' — $'+cost : '');
+    sel.appendChild(o);
+  });
+}
+
+function calcFees(price) {
+  const ebay = price * 0.0935;
+  return {ebay, shipping: 0, net: price - ebay};
+}
+
+function showPrice() {
+  const modelVal = document.getElementById('model').value;
+  if (!modelVal) { document.getElementById('results').classList.remove('visible'); return; }
+  const parts = modelVal.split('|');
+  currentModel = parts[0];
+  const basePrice = parseFloat(mode==='avg' ? parts[1] : parts[2]);
+
+  const storageAdj = parseFloat(document.getElementById('storage').value) || 0;
+  const storageName = document.getElementById('storage').selectedOptions[0]?.textContent || '128GB';
+
+  const condVal = document.getElementById('condition').value;
+  const condName = document.getElementById('condition').selectedOptions[0]?.textContent || 'Good';
+  const ca = conditionAdj[currentModel] || {mint:25, good:0, fair:-35, poor:-60};
+  const condAdjVal = condVal === 'mint' ? ca.mint : condVal === 'fair' ? ca.fair : condVal === 'poor' ? ca.poor : 0;
+
+  const listPrice = basePrice + storageAdj + condAdjVal;
+
+  const repairSel = document.getElementById('repair');
+  const repairCost = parseFloat(repairSel.value) || 0;
+  currentRepairCost = repairCost;
+
+  const fees = calcFees(listPrice);
+  currentNet = fees.net;
+  const profit = fees.net - repairCost;
+
+  document.getElementById('r-model').textContent = currentModel;
+  document.getElementById('r-sub').textContent = condName + ' · Unlocked · ' + storageName + ' · eBay' + (repairCost>0?' · Repair: $'+repairCost:'');
+  document.getElementById('r-list').textContent = '$'+listPrice;
+  document.getElementById('r-profit').textContent = (profit>=0?'$':'-$')+Math.abs(profit).toFixed(0);
+  document.getElementById('r-profit').style.color = profit>=0?'var(--green)':'var(--red)';
+  document.getElementById('f-sale').textContent = '$'+listPrice;
+  document.getElementById('f-ebay').textContent = '-$'+fees.ebay.toFixed(2);
+  document.getElementById('f-repair').textContent = repairCost>0?'-$'+repairCost:'$0';
+  document.getElementById('f-net').textContent = (profit>=0?'$':'-$')+Math.abs(profit).toFixed(0);
+
+  [20,30,40,50].forEach(roi => {
+    const r = roi/100;
+    const maxBuy = (fees.net - repairCost*(1+r))/(1+r);
+    document.getElementById('b-'+roi).textContent = maxBuy>0?'$'+Math.floor(maxBuy):'N/A';
+  });
+
+  document.getElementById('results').classList.add('visible');
+  document.getElementById('repair-note').textContent = repairCost>0?'Repair cost of $'+repairCost+' included':'';
+  calculate();
+}
+
+function calculate() {
+  const buyPrice = parseFloat(document.getElementById('buy-price').value);
+  if (!buyPrice||buyPrice<=0) { document.getElementById('calc-result').classList.remove('visible'); return; }
+  const totalCost = buyPrice + currentRepairCost;
+  const profit = currentNet - totalCost;
+  const roi = (profit/totalCost)*100;
+
+  document.getElementById('c-buy').textContent = '-$'+buyPrice.toFixed(0);
+  document.getElementById('c-repair').textContent = currentRepairCost>0?'-$'+currentRepairCost:'$0';
+  document.getElementById('c-total-cost').textContent = '-$'+totalCost.toFixed(0);
+  document.getElementById('c-net').textContent = '$'+currentNet.toFixed(0);
+
+  const pe = document.getElementById('c-profit');
+  pe.textContent = (profit>=0?'+$':'-$')+Math.abs(profit).toFixed(0);
+  pe.style.color = profit>=0?'var(--green)':'var(--red)';
+
+  const re = document.getElementById('c-roi');
+  re.textContent = roi.toFixed(1)+'%';
+  re.style.color = roi>=25?'var(--green)':roi>=10?'var(--gold)':'var(--red)';
+
+  const v = document.getElementById('c-verdict');
+  if(roi>=35){v.textContent='🔥 Great Deal — Buy It';v.className='verdict buy';}
+  else if(roi>=20){v.textContent='✅ Good Deal — Worth It';v.className='verdict buy';}
+  else if(roi>=10){v.textContent='⚠️ Tight — Try to Negotiate';v.className='verdict caution';}
+  else{v.textContent='❌ Pass — Not Worth It';v.className='verdict pass';}
+
+  document.getElementById('calc-result').classList.add('visible');
+}
+</script>
+</body>
+</html>
